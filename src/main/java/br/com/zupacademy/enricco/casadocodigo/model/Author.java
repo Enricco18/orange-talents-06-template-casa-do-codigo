@@ -32,12 +32,15 @@ public class Author {
 
     @CreatedDate
     @NotNull
-    private LocalDateTime created_at;
+    private LocalDateTime created_at = LocalDateTime.now();
 
-    public Author(String name, String email, String description) {
+    public Author(@NotBlank String name, @NotBlank @Email String email, @Length(max = 400)  @NotBlank String description) {
         this.name = name;
         this.email = email;
         this.description = description;
+    }
+
+    public Author() {
     }
 
     public Long getId() {
