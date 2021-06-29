@@ -3,10 +3,7 @@ package br.com.zupacademy.enricco.casadocodigo.model;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -24,6 +21,7 @@ public class Author {
 
     @NotNull @NotEmpty @NotBlank
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotNull @NotEmpty @NotBlank
@@ -39,6 +37,11 @@ public class Author {
         this.email = email;
         this.description = description;
     }
+
+    @Deprecated
+    public Author() {
+    }
+
     public Long getId() {
         return id;
     }

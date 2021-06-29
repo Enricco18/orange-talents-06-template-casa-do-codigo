@@ -31,4 +31,16 @@ public class NewAuthorForm {
     public Author toModel(){
         return new Author(this.name,this.email,this.description);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
