@@ -39,10 +39,6 @@ public class Author {
         this.email = email;
         this.description = description;
     }
-
-    public Author() {
-    }
-
     public Long getId() {
         return id;
     }
