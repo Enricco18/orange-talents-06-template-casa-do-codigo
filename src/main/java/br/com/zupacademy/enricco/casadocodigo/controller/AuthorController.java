@@ -30,14 +30,12 @@ public class AuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthorDTO> createAuthor(@RequestBody @Valid NewAuthorForm authorForm){
+    public ResponseEntity<?> createAuthor(@RequestBody @Valid NewAuthorForm authorForm){
         Author newAuthor = authorForm.toModel();
 
         authorRepository.save(newAuthor);
 
-        AuthorDTO authorDTO = new AuthorDTO(newAuthor);
-
-        return ResponseEntity.ok().body(authorDTO);
+        return ResponseEntity.ok().build();
     }
 
 }

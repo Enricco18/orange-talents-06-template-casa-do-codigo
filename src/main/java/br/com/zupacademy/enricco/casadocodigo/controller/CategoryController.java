@@ -27,11 +27,11 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> createCategory(@RequestBody @Valid NewCategoryForm categoryForm){
+    public ResponseEntity<?> createCategory(@RequestBody @Valid NewCategoryForm categoryForm){
        Category category = categoryForm.toModel();
        categoryRepository.save(category);
-       CategoryDTO categoryDTO = new CategoryDTO(category);
-       return ResponseEntity.ok().body(categoryDTO);
+
+       return ResponseEntity.ok().build();
 
     }
 }

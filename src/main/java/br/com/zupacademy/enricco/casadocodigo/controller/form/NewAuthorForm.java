@@ -44,7 +44,4 @@ public class NewAuthorForm {
         return email;
     }
 
-    public String getDescription() {
-        return description;
-    }
 }
