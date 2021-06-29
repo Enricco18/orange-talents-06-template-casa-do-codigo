@@ -8,7 +8,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Component
 public class EmailRegisteredValidation implements Validator {

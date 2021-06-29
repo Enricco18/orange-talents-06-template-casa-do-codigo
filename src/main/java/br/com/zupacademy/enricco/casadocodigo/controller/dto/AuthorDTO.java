@@ -11,7 +11,7 @@ public class AuthorDTO {
     private String description;
     private LocalDateTime created_at;
 
-    public void parse(Author author){
+    public AuthorDTO(Author author){
         this.id = author.getId();
         this.name = author.getName();
         this.email = author.getEmail();

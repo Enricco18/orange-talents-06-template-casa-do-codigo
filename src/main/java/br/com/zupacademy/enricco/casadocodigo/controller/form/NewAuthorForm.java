@@ -22,6 +22,10 @@ public class NewAuthorForm {
     @Length(max = 400)
     private String description;
 
+    @Deprecated
+    public NewAuthorForm() {
+    }
+
     public NewAuthorForm(String name, String email, String description) {
         this.name = name;
         this.email = email;
