@@ -1,6 +1,7 @@
 package br.com.zupacademy.enricco.casadocodigo.controller.form;
 
 import br.com.zupacademy.enricco.casadocodigo.model.Author;
+import br.com.zupacademy.enricco.casadocodigo.validation.UniqueValue;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -16,6 +17,7 @@ public class NewAuthorForm {
 
     @NotNull @NotEmpty @NotBlank
     @Email
+    @UniqueValue(domainClass = Author.class, fieldName = "email")
     private String email;
 
     @NotNull @NotEmpty @NotBlank
@@ -44,4 +46,7 @@ public class NewAuthorForm {
         return email;
     }
 
+    public String getDescription() {
+        return description;
+    }
 }

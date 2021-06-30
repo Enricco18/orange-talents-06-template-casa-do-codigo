@@ -1,6 +1,7 @@
 package br.com.zupacademy.enricco.casadocodigo.controller.form;
 
 import br.com.zupacademy.enricco.casadocodigo.model.Category;
+import br.com.zupacademy.enricco.casadocodigo.validation.UniqueValue;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -10,6 +11,7 @@ public class NewCategoryForm {
     @NotNull
     @NotBlank
     @NotEmpty
+    @UniqueValue(domainClass = Category.class, fieldName = "name")
     private String name;
 
     @Deprecated

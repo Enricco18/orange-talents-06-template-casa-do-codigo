@@ -18,14 +18,6 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @Autowired
-    private  NameRegisteredValidation nameRegisteredValidation;
-
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(nameRegisteredValidation);
-    }
-
     @PostMapping
     public ResponseEntity<?> createCategory(@RequestBody @Valid NewCategoryForm categoryForm){
        Category category = categoryForm.toModel();

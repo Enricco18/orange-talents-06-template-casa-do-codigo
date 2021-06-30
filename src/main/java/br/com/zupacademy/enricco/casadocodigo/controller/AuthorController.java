@@ -21,13 +21,6 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class AuthorController {
     @Autowired
     private AuthorRepository authorRepository;
-    @Autowired
-    private EmailRegisteredValidation emailRegisteredValidation;
-
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(emailRegisteredValidation);
-    }
 
     @PostMapping
     public ResponseEntity<?> createAuthor(@RequestBody @Valid NewAuthorForm authorForm){
