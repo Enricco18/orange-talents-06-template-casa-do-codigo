@@ -2,7 +2,6 @@ package br.com.zupacademy.enricco.casadocodigo.controller;
 
 import br.com.zupacademy.enricco.casadocodigo.controller.dto.CategoryDTO;
 import br.com.zupacademy.enricco.casadocodigo.controller.form.NewCategoryForm;
-import br.com.zupacademy.enricco.casadocodigo.middleware.validator.NameRegisteredValidation;
 import br.com.zupacademy.enricco.casadocodigo.model.Category;
 import br.com.zupacademy.enricco.casadocodigo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

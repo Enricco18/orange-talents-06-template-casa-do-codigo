@@ -1,20 +1,13 @@
 package br.com.zupacademy.enricco.casadocodigo.controller;
 
-import br.com.zupacademy.enricco.casadocodigo.controller.dto.AuthorDTO;
 import br.com.zupacademy.enricco.casadocodigo.controller.form.NewAuthorForm;
-import br.com.zupacademy.enricco.casadocodigo.middleware.validator.EmailRegisteredValidation;
 import br.com.zupacademy.enricco.casadocodigo.model.Author;
 import br.com.zupacademy.enricco.casadocodigo.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
 @RequestMapping("/author")
