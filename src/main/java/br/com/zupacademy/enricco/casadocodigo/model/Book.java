@@ -60,6 +60,10 @@ public class Book {
         this.category = category;
     }
 
+    @Deprecated
+    private Book() {
+    }
+
     public Long getId() {
         return id;
     }

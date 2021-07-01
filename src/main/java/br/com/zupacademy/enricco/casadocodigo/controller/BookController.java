@@ -1,21 +1,19 @@
 package br.com.zupacademy.enricco.casadocodigo.controller;
 
+import br.com.zupacademy.enricco.casadocodigo.controller.dto.BookDTO;
 import br.com.zupacademy.enricco.casadocodigo.controller.form.NewBookForm;
 import br.com.zupacademy.enricco.casadocodigo.model.Author;
 import br.com.zupacademy.enricco.casadocodigo.model.Book;
 import br.com.zupacademy.enricco.casadocodigo.model.Category;
-import br.com.zupacademy.enricco.casadocodigo.repository.AuthorRepository;
-import br.com.zupacademy.enricco.casadocodigo.repository.BookRepository;
-import br.com.zupacademy.enricco.casadocodigo.repository.CategoryRepository;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -23,26 +21,34 @@ import javax.validation.Valid;
 public class BookController {
     private Logger logger= LoggerFactory.getLogger(BookController.class);
 
-    @Autowired
-    private BookRepository bookRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    private AuthorRepository authorRepository;
+    @GetMapping
+    @Transactional
+    public ResponseEntity<List<BookDTO>> getAllBooks(){
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+        logger.info("METHOD:GET | PATH: /book | FUNCTION: GetAllBooks");
+
+        Query query = entityManager.createQuery("SELECT new "+BookDTO.class.getName()+"(b.id,b.title) FROM Book b");
+
+        List<BookDTO> results = query.getResultList();
+
+        return  ResponseEntity.ok().body(results);
+    }
 
 
     @PostMapping
-    public ResponseEntity<?> createBook(@RequestBody @Valid NewBookForm bookForm){
+    @Transactional
+    public ResponseEntity<?> createBook(@RequestBody @Valid NewBookForm bookForm) {
 
-        logger.info(bookForm.toString());
+        logger.info("METHOD:POST | PATH: /book | FUNCTION: createBook | BODY:" + bookForm.toString());
 
-        Author author = authorRepository.findById(bookForm.getAuthor_id()).get();
-        Category category = categoryRepository.findById(bookForm.getCategory_id()).get();
+        Author author = entityManager.find(Author.class,bookForm.getAuthor_id());
+        Category category = entityManager.find(Category.class,bookForm.getCategory_id());
 
         Book newBook = bookForm.toModel(author,category);
-        bookRepository.save(newBook);
+        entityManager.persist(newBook);
 
 
         return ResponseEntity.ok().build();
