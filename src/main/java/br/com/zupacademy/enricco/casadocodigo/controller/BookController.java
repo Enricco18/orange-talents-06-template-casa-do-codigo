@@ -1,6 +1,8 @@
 package br.com.zupacademy.enricco.casadocodigo.controller;
 
 import br.com.zupacademy.enricco.casadocodigo.controller.dto.BookDTO;
+import br.com.zupacademy.enricco.casadocodigo.controller.dto.DetailedBookAuthorDTO;
+import br.com.zupacademy.enricco.casadocodigo.controller.dto.DetailedBookDTO;
 import br.com.zupacademy.enricco.casadocodigo.controller.form.NewBookForm;
 import br.com.zupacademy.enricco.casadocodigo.model.Author;
 import br.com.zupacademy.enricco.casadocodigo.model.Book;
@@ -35,6 +37,27 @@ public class BookController {
         List<BookDTO> results = query.getResultList();
 
         return  ResponseEntity.ok().body(results);
+    }
+
+    @GetMapping("/{id}")
+    @Transactional
+    public  ResponseEntity<DetailedBookDTO> getBookById(@PathVariable("id") Long id){
+        logger.info("METHOD:GET | PATH: /book | FUNCTION: getBookById | PARAMS: "+ id.toString());
+
+        Query query = entityManager.createQuery("SELECT new "+ DetailedBookDTO.class.getName()+
+                "(b.title,b.lsbn,b.resume,b.summary,b.price,b.nPages,b.author.name,b.author.description) FROM Book b WHERE id=:id");
+
+        query.setParameter("id",id);
+
+        List<DetailedBookDTO> detailedBookDTOS = query.getResultList();
+
+        if(detailedBookDTOS.isEmpty()){
+            logger.error("Not Found: BOOK - "+ id.toString());
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(detailedBookDTOS.get(0));
+
     }
 
 
